@@ -8,20 +8,21 @@ import {Provider} from "react-redux";
 import {createStore ,applyMiddleware ,compose,combineReducers} from "redux";
 import thunk from "redux-thunk";
 import reportWebVitals from './reportWebVitals';
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-//
-// const rootReducer = combineReducers({
-//
-// })
-// const store = createStore(rootReducer,composeEnhancers(
-//   applyMiddleware(thunk)
-// ));
+import LoginReducer from "./Store/Reducer/Login.jsx";
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const rootReducer = combineReducers({
+  Login:LoginReducer
+})
+const store = createStore(rootReducer,composeEnhancers(
+  applyMiddleware(thunk)
+));
 const app =(
-  // <Provider store={store}>
+  <Provider store={store}>
     <BrowserRouter>
       <App/>
     </BrowserRouter>
-  // </Provider>
+   </Provider>
 )
 ReactDOM.render(
   <React.StrictMode>

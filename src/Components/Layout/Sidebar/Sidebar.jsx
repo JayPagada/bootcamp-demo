@@ -10,13 +10,16 @@ const { Sider } = Layout;
 const Navbar = ()=>{
    const [navItem]= useState([
      {value:"Dashboard",
-      icon:<UserOutlined/>
+      icon:<UserOutlined/>,
+      path:"/MainLayout/Dashboard"
      },
      {
+       path:"/MainLayout/Bootcamp",
        value:"Bootcamp",
       icon:<DatabaseOutlined />
      },
      {
+       path:"/Dashboard",
        value:"Courses",
       icon: <BookOutlined />
      },
@@ -26,7 +29,7 @@ const Navbar = ()=>{
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['Dashboard']} defaultOpenKeys={['Dashboard']}>
         {navItem.map((item)=>(
           <Menu.Item key={item.value} icon={item.icon}>
-            <NavLink to="/Dashboard"> {item.value}</NavLink>
+            <NavLink to={item.path} > {item.value}</NavLink>
           </Menu.Item>
           )
         )

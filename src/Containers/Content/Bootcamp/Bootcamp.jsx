@@ -5,11 +5,11 @@ const { Text } = Typography;
 
 const Dashboard = ()=>{
 
-    return (
-      <div>
-        <Text level={2} >Welcome User </Text>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Text level={2} >Welcome jay </Text>
+    </div>
+  );
+}
 
 export default Dashboard;

@@ -2,23 +2,22 @@ import React,{useState} from "react";
 import Inputs from "../../Components/UI/Input/Inputs";
 import { Form,Typography } from 'antd';
 import Buttons from "../../Components/UI/Button/Buttons";
+import * as actions from "../../Store/Action/Login.jsx";
+import {connect} from "react-redux";
 import "../Login/Login.css"
-const Register=() => {
-  const [login , setlogin] = useState({
+const Register=(props) => {
+  const [Register ] = useState({
     name:{
       elementType:"input",
-      value:"",
     },
     email:{
       elementType:"email",
-      value:"",
       validation:{
         required:true
       },
     },
     password:{
       elementType:"password",
-      value:"",
       validation:{
         required:true
       },
@@ -30,8 +29,7 @@ const Register=() => {
           {value: "user", displayValue: "user"},
           {value: "admin", displayValue: "admin"}
         ]
-      },
-      value: ""
+      }
     }
   });
   const { Title } = Typography;
@@ -43,16 +41,21 @@ const Register=() => {
   const titleLayout = {
     wrapperCol: { offset: 10, span: 4 },
   };
+  const onFinish = (values) => {
+    props.onReg(values.username,values.email,values.password,values.role);
+    props.history.push('/MainLayout/Dashboard')
+  };
 
   const formElementArray = [];
-  for(let key in login){
-    formElementArray.push({id:key, config:login[key]})
+  for(let key in Register){
+    formElementArray.push({id:key, config:Register[key]})
   }
   let form = (
     <Form
       {...tailLayout}
       name="normal_login"
       className="login-form"
+      onFinish={onFinish}
     >
       <Form.Item {...titleLayout}>
         <Title level={3} className="title">
@@ -66,10 +69,9 @@ const Register=() => {
           elementConfig={formElement.config.elementConfig}
           value={formElement.config.value}
           shouldValidate={formElement.config.validation}
-          // changed={(event)=>this.inputChangeHandeler(event,formElement.id)}
         />
       ))}
-      <Buttons>LogIn</Buttons>
+      <Buttons>Register Now</Buttons>
     </Form>
   );
   return(
@@ -81,4 +83,11 @@ const Register=() => {
 
   );
 }
-export default Register;
+
+const mapDispatchToProps = dispatch =>{
+  return {
+    onReg : (name,email,password,role) =>dispatch(actions.REGISTER(name,email,password,role))
+  }
+};
+
+  export default connect(null,mapDispatchToProps)(Register);
