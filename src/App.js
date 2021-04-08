@@ -1,24 +1,21 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Auxiliary from "./hoc/Auxiliary/Auxiliary.jsx"
+import Login from "./Containers/Login/Login";
+import {Route, Redirect , Switch} from "react-router-dom"
+import Register from "./Containers/Register/Register";
+import MainLayout from "./Components/Layout/MainLayout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Auxiliary>
+      <Switch>
+        <Route path="/Login" component={Login}/>
+        <Route path="/Register" component={Register}/>
+        <Route path="/MainLayout" component={MainLayout}/>
+        <Redirect to="/Login"/>
+      </Switch>
+    </Auxiliary>
   );
 }
 

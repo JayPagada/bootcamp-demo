@@ -1,0 +1,12 @@
+.fix-sider {
+    overflow: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+}
+
+.fix-topbar {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
