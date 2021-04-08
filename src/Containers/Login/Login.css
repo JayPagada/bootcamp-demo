@@ -1,0 +1,11 @@
+.login-container {
+    background: #ececec;
+    padding-top: 25vh;
+    height: 100vh;
+}
+.login-container .title {
+    color: #1890ff;
+}
+.select_dropdown{
+    width: 100%;
+}
