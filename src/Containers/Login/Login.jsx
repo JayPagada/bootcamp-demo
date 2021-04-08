@@ -3,23 +3,18 @@ import Inputs from "../../Components/UI/Input/Inputs";
 import { Form,Typography } from 'antd';
 import Buttons from "../../Components/UI/Button/Buttons";
  import "./Login.css"
-const Login = () => {
-    const [login , setlogin] = useState({
+import * as actions from "../../Store/Action/Login.jsx";
+import {connect} from "react-redux";
+import {NavLink, Route, Switch} from "react-router-dom";
+import MainLayout from "../../Components/Layout/MainLayout";
+const Login = (props) => {
+    const [login] = useState({
       email:{
         elementType:"email",
-        value:"",
-        validation:{
-          required:true
-        },
       },
       password:{
         elementType:"password",
-        value:"",
-        validation:{
-          required:true
-        },
       }
-
     });
   const { Title } = Typography;
 
@@ -31,13 +26,19 @@ const Login = () => {
     wrapperCol: { offset: 10, span: 4 },
   };
 
+ const inputChangeHandeler = (values)=>{
+   props.onAuth(values.email,values.password);
+    props.history.push('/MainLayout/Dashboard')
+ }
   const formElementArray = [];
   for(let key in login){
     formElementArray.push({id:key, config:login[key]})
   }
+
    let form = (
      <Form
        {...tailLayout}
+       onFinish={inputChangeHandeler}
            name="normal_login"
            className="login-form"
      >
@@ -50,12 +51,12 @@ const Login = () => {
          <Inputs
            key={formElement.id}
            elementType={formElement.config.elementType}
-           value={formElement.config.value}
            shouldValidate={formElement.config.validation}
-           // changed={(event)=>this.inputChangeHandeler(event,formElement.id)}
          />
        ))}
        <Buttons>LogIn</Buttons>
+       <NavLink to="/Register" > <Buttons >SignIn</Buttons> </NavLink>
+
      </Form>
    );
 
@@ -68,4 +69,9 @@ const Login = () => {
 
     );
 }
-export default Login;
+const mapDispatchToProps = dispatch =>{
+  return {
+    onAuth : (email,password) =>dispatch(actions.auth(email,password))
+  }
+};
+export default connect(null,mapDispatchToProps)(Login);

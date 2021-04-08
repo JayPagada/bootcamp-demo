@@ -1,22 +1,52 @@
-
+import React,{useEffect} from "react";
 import './App.css';
 import Auxiliary from "./hoc/Auxiliary/Auxiliary.jsx"
 import Login from "./Containers/Login/Login";
 import {Route, Redirect , Switch} from "react-router-dom"
 import Register from "./Containers/Register/Register";
 import MainLayout from "./Components/Layout/MainLayout";
+import * as actions from "./Store/Action/Login.jsx";
+import {connect} from "react-redux";
 
-function App() {
+function App(props) {
+  useEffect(()=>{
+    props.onTryAutoSignup();
+  },[])
+  let routes = (
+    <Switch>
+
+      <Route path="/Login" exact component={Login}/>,
+      <Route path="/Register" exact component={Register}/>,
+      <Redirect to="/" from="/Login"/>
+    </Switch>
+  );
+  {
+    console.log(props.isAuthenticated)}
+  if (props.isAuthenticated) {
+    routes = (
+      <Switch>
+        <Route path="/MainLayout" exact component={MainLayout}/>,
+        <Route path="/MainLayout/Dashboard" component={MainLayout}/>,
+        <Route path="/MainLayout/Bootcamp" component={MainLayout}/>,
+      </Switch>
+    );
+  }
   return (
     <Auxiliary>
       <Switch>
-        <Route path="/Login" component={Login}/>
-        <Route path="/Register" component={Register}/>
-        <Route path="/MainLayout" component={MainLayout}/>
-        <Redirect to="/Login"/>
+        {routes}
       </Switch>
     </Auxiliary>
   );
 }
-
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.Login.token !== null
+  };
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App);
