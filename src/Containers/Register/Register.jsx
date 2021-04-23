@@ -3,7 +3,7 @@ import Inputs from "../../Components/UI/Input/Inputs";
 import { Form,Typography } from 'antd';
 import Buttons from "../../Components/UI/Button/Buttons";
 import * as actions from "../../Store/Action/Login.jsx";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import "../Login/Login.css"
 const Register=(props) => {
   const [Register ] = useState({
@@ -33,7 +33,7 @@ const Register=(props) => {
     }
   });
   const { Title } = Typography;
-
+  const dispatch = useDispatch()
   const tailLayout = {
     wrapperCol: { offset: 9, span: 6 },
   };
@@ -42,7 +42,7 @@ const Register=(props) => {
     wrapperCol: { offset: 10, span: 4 },
   };
   const onFinish = (values) => {
-    props.onReg(values.username,values.email,values.password,values.role);
+    dispatch(actions.REGISTER(values.username,values.email,values.password,values.role));
     props.history.push('/MainLayout/Dashboard')
   };
 
@@ -84,10 +84,4 @@ const Register=(props) => {
   );
 }
 
-const mapDispatchToProps = dispatch =>{
-  return {
-    onReg : (name,email,password,role) =>dispatch(actions.REGISTER(name,email,password,role))
-  }
-};
-
-  export default connect(null,mapDispatchToProps)(Register);
+  export default Register;

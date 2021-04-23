@@ -1,13 +1,14 @@
 import React from 'react';
 import { Typography } from 'antd';
 
-const { Text } = Typography;
+const { Text,Title } = Typography;
 
 const Dashboard = ()=>{
 
     return (
       <div>
-        <Text level={2} >Welcome User </Text>
+        <Title level={1} >Welcome  </Title>
+        <Text></Text>
       </div>
     );
   }
