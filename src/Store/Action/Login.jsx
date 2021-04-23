@@ -28,6 +28,7 @@ export const logout = ()=>{
 };
 
 export const auth = (email,password)=>{
+  console.log("email" , email)
   return dispatch => {
     dispatch(authStart());
     const authData ={
