@@ -6,14 +6,15 @@ import {Route, Redirect , Switch} from "react-router-dom"
 import Register from "./Containers/Register/Register";
 import MainLayout from "./Components/Layout/MainLayout";
 import * as actions from "./Store/Action/Login.jsx";
-import {useDispatch,connect} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 
 function App(props) {
   const dispatch = useDispatch()
+  const auth = useSelector(state => state);
 
   useEffect(()=>{
     dispatch(actions.authCheckState());
-  },[])
+  },[dispatch])
   let routes = (
     <Switch>
       <Route path="/Login" exact component={Login}/>,
@@ -21,7 +22,8 @@ function App(props) {
       <Redirect to="/" from="/Login"/>
     </Switch>
   );
-  if (props.isAuthenticated) {
+
+  if (auth.Login.token !== null) {
     routes = (
       <Switch>
         <Route path="/MainLayout" exact component={MainLayout}/>,
@@ -30,6 +32,7 @@ function App(props) {
       </Switch>
     );
    }
+
   return (
     <Auxiliary>
       <Switch>
@@ -38,14 +41,6 @@ function App(props) {
     </Auxiliary>
   );
 }
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.Login.token !== null
-  };
-}
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onTryAutoSignup: () => dispatch(actions.authCheckState())
-//   }
-// }
-export default connect(mapStateToProps)(App);
+
+
+export default App;

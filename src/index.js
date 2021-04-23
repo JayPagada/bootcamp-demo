@@ -9,10 +9,14 @@ import {createStore ,applyMiddleware ,compose,combineReducers} from "redux";
 import thunk from "redux-thunk";
 import reportWebVitals from './reportWebVitals';
 import LoginReducer from "./Store/Reducer/Login.jsx";
+import GetUserReducer from "./Store/Reducer/Getuser.jsx";
+import BootcampReducer from "./Store/Reducer/Bootcamp.jsx";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  Login:LoginReducer
+  Login:LoginReducer,
+  Getuser:GetUserReducer,
+  Bootcamp:BootcampReducer
 })
 const store = createStore(rootReducer,composeEnhancers(
   applyMiddleware(thunk)

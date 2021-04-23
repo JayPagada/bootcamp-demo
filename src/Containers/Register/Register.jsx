@@ -3,7 +3,7 @@ import Inputs from "../../Components/UI/Input/Inputs";
 import { Form,Typography } from 'antd';
 import Buttons from "../../Components/UI/Button/Buttons";
 import * as actions from "../../Store/Action/Login.jsx";
-import {connect, useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import "../Login/Login.css"
 const Register=(props) => {
   const [Register ] = useState({
@@ -84,4 +84,4 @@ const Register=(props) => {
   );
 }
 
-  export default Register;
+export default Register;

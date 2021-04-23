@@ -1,4 +1,4 @@
-import React, {useState,useReducer} from "react";
+import React, {useState} from "react";
 import Inputs from "../../Components/UI/Input/Inputs";
 import {Form, Typography} from 'antd';
 import Buttons from "../../Components/UI/Button/Buttons";
@@ -6,8 +6,6 @@ import "./Login.css"
 import * as actions from "../../Store/Action/Login.jsx";
 import {useDispatch} from "react-redux";
 import {NavLink} from "react-router-dom";
-import reducer from "../../Store/Reducer/Login";
-
 
 const Login = (props) => {
   const dispatch = useDispatch()
@@ -19,8 +17,6 @@ const Login = (props) => {
       elementType: "password",
     }
   });
-
-  const [login, dispach] = useReducer(reducer)
 
   const {Title} = Typography;
 

@@ -36,7 +36,7 @@ export const auth = (email,password)=>{
       "password":password
     }
 
-    api.post("/auth/login",authData)
+    api.post("auth/login",authData)
       .then(response=>{
         console.log(response)
         localStorage.setItem("token",response.data.token)
@@ -60,7 +60,7 @@ export const REGISTER = (name,email,password,role)=>{
       "role":role
     }
 
-    api.post("/auth/register",authData)
+    api.post("auth/register",authData)
       .then(response=>{
         console.log(response)
         localStorage.setItem("token",response.data.token)
@@ -81,7 +81,6 @@ export const authCheckState = () =>{
       dispatch(logout());
     }
     else {
-        const userId = localStorage.getItem("success")
         dispatch(authSuccess(token))
       }
     }
