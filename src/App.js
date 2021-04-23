@@ -10,7 +10,7 @@ import {useDispatch,useSelector} from "react-redux";
 
 function App(props) {
   const dispatch = useDispatch()
-  const auth = useSelector(state => state);
+  const auth = useSelector(state => state.Login);
 
   useEffect(()=>{
     dispatch(actions.authCheckState());
@@ -23,7 +23,7 @@ function App(props) {
     </Switch>
   );
 
-  if (auth.Login.token !== null) {
+  if (auth.token) {
     routes = (
       <Switch>
         <Route path="/MainLayout" exact component={MainLayout}/>,

@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
         loading: true
       }
     case actionTypes.GET_CURRENT_BOOTCAMP_SUCCESS:
-      const bootCamps = action.bootCampsData.map((bootcamp, index) => {
+      const bootCamps = action?.bootCampsData?.map((bootcamp, index) => {
         return {
           key: index,
           name: bootcamp.name,

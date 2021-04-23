@@ -8,10 +8,10 @@ const { Text,Title } = Typography;
 
 const Dashboard = ()=>{
   const dispatch = useDispatch()
-  const getUserData = useSelector(state => state);
+  const getUserData = useSelector(state => state.Getuser);
   useEffect(()=>{dispatch(actions.getUser())},[dispatch])
 
-  if (getUserData.Getuser.loading){
+  if (getUserData.loading){
     return (
       <div>
         <Spin size="large" />
@@ -20,9 +20,9 @@ const Dashboard = ()=>{
   }
     return (
       <div>
-        <Title level={1} >Welcome {getUserData.Getuser.currentUser} </Title>
-        <Text>{getUserData.Getuser.currentUserEmail}</Text>
-        <Text>{getUserData.Getuser.error}</Text>
+        <Title level={1} >Welcome {getUserData.currentUser} </Title>
+        <Text>{getUserData.currentUserEmail}</Text>
+        <Text>{getUserData.error}</Text>
       </div>
     );
   }

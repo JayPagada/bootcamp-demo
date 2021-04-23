@@ -69,7 +69,7 @@ export const REGISTER = (name,email,password,role)=>{
       })
       .catch(error=>{
         console.log(error)
-        dispatch(authFail(error.response.data.error))
+        dispatch(authFail(error.message))
       })
   };
 };
