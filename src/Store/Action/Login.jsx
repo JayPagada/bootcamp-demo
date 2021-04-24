@@ -1,6 +1,7 @@
-import api from "../../Axios-Orders.jsx"
 import * as actionsTypes from "./ActionType.jsx"
+import axios from "axios";
 
+const BaseUrl= "https://nodejs-dev-camper-api.herokuapp.com/api/v1/"
 export const authStart = ()=>{
   return{
     type:actionsTypes.AUTH_START
@@ -27,30 +28,28 @@ export const logout = ()=>{
   };
 };
 
-export const auth = (email,password)=>{
-  console.log("email" , email)
+export const auth = (email,password,props)=>{
   return dispatch => {
     dispatch(authStart());
     const authData ={
       "email":email,
       "password":password
     }
-
-    api.post("auth/login",authData)
+    axios.post( BaseUrl + "auth/login",authData)
       .then(response=>{
-        console.log(response)
         localStorage.setItem("token",response.data.token)
         localStorage.setItem("success",response.data.success)
         dispatch(authSuccess(response.data.token,response.data.success))
+        props.history.push('/MainLayout/Dashboard')
       })
       .catch(error=>{
-        console.log(error)
-        dispatch(authFail(error.response.data.error))
+          dispatch(authFail(error.response.data.error))
+
       })
   };
 };
 
-export const REGISTER = (name,email,password,role)=>{
+export const REGISTER = (name,email,password,role,props)=>{
   return dispatch => {
     dispatch(authStart());
     const authData ={
@@ -60,16 +59,15 @@ export const REGISTER = (name,email,password,role)=>{
       "role":role
     }
 
-    api.post("auth/register",authData)
+    axios.post(BaseUrl + "auth/register",authData)
       .then(response=>{
-        console.log(response)
         localStorage.setItem("token",response.data.token)
         localStorage.setItem("success",response.data.success)
         dispatch(authSuccess(response.data.token,response.data.success))
+        props.history.push('/MainLayout/Dashboard')
       })
       .catch(error=>{
-        console.log(error)
-        dispatch(authFail(error.message))
+        dispatch(authFail(error.response.data.error))
       })
   };
 };

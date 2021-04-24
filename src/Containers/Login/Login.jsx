@@ -4,11 +4,12 @@ import {Form, Typography} from 'antd';
 import Buttons from "../../Components/UI/Button/Buttons";
 import "./Login.css"
 import * as actions from "../../Store/Action/Login.jsx";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 
 const Login = (props) => {
   const dispatch = useDispatch()
+  const checkError = useSelector(state => state.Login);
   const [loginState] = useState({
     email: {
       elementType: "email",
@@ -18,7 +19,7 @@ const Login = (props) => {
     }
   });
 
-  const {Title} = Typography;
+  const {Title,Text} = Typography;
 
   const tailLayout = {
     wrapperCol: {offset: 9, span: 6},
@@ -29,14 +30,13 @@ const Login = (props) => {
   };
 
   const inputChangeHandeler = (values) => {
-    dispatch(actions.auth(values.email,values.password))
-    props.history.push('/MainLayout/Dashboard')
+    dispatch(actions.auth(values.email,values.password,props))
+
   }
   const formElementArray = [];
   for (let key in loginState) {
     formElementArray.push({id: key, config: loginState[key]})
   }
-
   let form = (
     <Form
       {...tailLayout}
@@ -56,10 +56,15 @@ const Login = (props) => {
           shouldValidate={formElement.config.validation}
         />
       ))}
+      <Form.Item>
+      {(checkError?.error)&&(
+      <Text className="error">  {checkError?.error} </Text>
+      )}
+      </Form.Item>
       <Buttons>LogIn</Buttons>
       <NavLink to="/Register"> <Buttons>SignIn</Buttons> </NavLink>
-
     </Form>
+
   );
 
   return (

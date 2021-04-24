@@ -11,12 +11,14 @@ import reportWebVitals from './reportWebVitals';
 import LoginReducer from "./Store/Reducer/Login.jsx";
 import GetUserReducer from "./Store/Reducer/Getuser.jsx";
 import BootcampReducer from "./Store/Reducer/Bootcamp.jsx";
+import CoursesReducer from "./Store/Reducer/Courses.jsx";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   Login:LoginReducer,
   Getuser:GetUserReducer,
-  Bootcamp:BootcampReducer
+  Bootcamp:BootcampReducer,
+  courses:CoursesReducer
 })
 const store = createStore(rootReducer,composeEnhancers(
   applyMiddleware(thunk)

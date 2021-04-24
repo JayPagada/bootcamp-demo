@@ -21,36 +21,26 @@ export const getCurrentBootcampFailure = (error) => {
 };
 
 export const getBootcamp = ()=>{
-  const token = localStorage.getItem('token');
   return dispatch => {
     dispatch(getCurrentBootcampRequest());
-    api.get('bootcamps',{headers:{'Authorization':`Bearer ${token}`}})
+    api.get('bootcamps',)
       .then(response=>{
-        console.log(response.data.data)
         dispatch(getCurrentBootcampSuccess(response.data.data))
       })
       .catch(error=>{
-        console.log(error)
-        dispatch(getCurrentBootcampFailure(error.message))
+        dispatch(getCurrentBootcampFailure(error.response.data.error))
       })
   };
 };
 export const deleteData = (id)=>{
-  const token = localStorage.getItem('token');
   return dispatch => {
     dispatch(getCurrentBootcampRequest());
-    api.delete('bootcamps/{bootcampId}',{
-      headers:{'Authorization':`Bearer ${token}`},
-      data: {
-        id:id
-      }})
+    api.delete(`bootcamps/${id}`)
       .then(response=>{
-        console.log(response.data.data)
         dispatch(getCurrentBootcampSuccess(response.data.data))
       })
       .catch(error=>{
-        console.log(error)
-        dispatch(getCurrentBootcampFailure(error.message))
+        dispatch(getCurrentBootcampFailure(error.response.data.error))
       })
   };
 };

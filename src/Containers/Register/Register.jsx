@@ -42,8 +42,7 @@ const Register=(props) => {
     wrapperCol: { offset: 10, span: 4 },
   };
   const onFinish = (values) => {
-    dispatch(actions.REGISTER(values.username,values.email,values.password,values.role));
-    props.history.push('/MainLayout/Dashboard')
+    dispatch(actions.REGISTER(values.username,values.email,values.password,values.role,props));
   };
 
   const formElementArray = [];

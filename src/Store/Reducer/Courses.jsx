@@ -1,38 +1,35 @@
 import * as actionTypes from "../Action/ActionType.jsx"
 
-
 const initialState = {
-  bootCamps:[],
+  Courses:[],
   error: null,
   loading: false
 }
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GET_CURRENT_BOOTCAMP_REQUEST:
+    case actionTypes.GET_CURRENT_COURSES_REQUEST:
       return {
         ...state,
         loading: true
       }
-    case actionTypes.GET_CURRENT_BOOTCAMP_SUCCESS:
-      const bootCamps = action?.bootCampsData?.map((bootcamp, index) => {
+    case actionTypes.GET_CURRENT_COURSES_SUCCESS:
+      const Courses = action?.getCourses?.map((courses, index) => {
         return {
           key: index,
-          name: bootcamp.name,
-          email: bootcamp.email,
-          phone: bootcamp.phone,
-          website: bootcamp.website,
-          id:bootcamp.id
+          title: courses.title,
+          description: courses.description,
         };
       });
       return {
         ...state,
-        bootCamps,
+        Courses,
         loading: false
       }
-    case actionTypes.GET_CURRENT_BOOTCAMP_FAILURE:
+    case actionTypes.GET_CURRENT_COURSES_FAILURE:
       return {
         ...state,
-        error: action.error,
+        error: action?.error,
         loading: false
       }
     default:

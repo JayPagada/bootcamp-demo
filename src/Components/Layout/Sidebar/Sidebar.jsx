@@ -19,7 +19,7 @@ const Navbar = ()=>{
       icon:<DatabaseOutlined />
      },
      {
-       path:"/Dashboard",
+       path:"/MainLayout/Courses",
        value:"Courses",
       icon: <BookOutlined />
      },

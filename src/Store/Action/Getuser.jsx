@@ -21,17 +21,14 @@ export const getCurrentUserFailure = (error) => {
 };
 
 export const getUser = ()=>{
-  const token = localStorage.getItem('token');
   return dispatch => {
     dispatch(getCurrentUserRequest());
-    api.get('auth/me',{headers:{'Authorization':`Bearer ${token}`}})
+    api.get('auth/me')
       .then(response=>{
-        console.log(response.data.data)
         dispatch(getCurrentUserSuccess(response.data.data))
       })
       .catch(error=>{
-        console.log(error)
-        dispatch(getCurrentUserFailure(error.message))
+        dispatch(getCurrentUserFailure(error.response.data.error))
       })
   };
 };
