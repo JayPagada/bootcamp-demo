@@ -8,7 +8,7 @@ const { Text,Title } = Typography;
 
 const Dashboard = ()=>{
   const dispatch = useDispatch()
-  const getUserData = useSelector(state => state.Getuser);
+  const getUserData = useSelector(state => state.getUser);
   useEffect(()=>{dispatch(actions.getUser())},[dispatch])
 
   if (getUserData.loading){

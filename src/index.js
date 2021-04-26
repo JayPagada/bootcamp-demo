@@ -15,10 +15,10 @@ import CoursesReducer from "./Store/Reducer/Courses.jsx";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  Login:LoginReducer,
-  Getuser:GetUserReducer,
-  Bootcamp:BootcampReducer,
-  courses:CoursesReducer
+  getLogin:LoginReducer,
+  getUser:GetUserReducer,
+  getBootcamp:BootcampReducer,
+  getCourses:CoursesReducer
 })
 const store = createStore(rootReducer,composeEnhancers(
   applyMiddleware(thunk)

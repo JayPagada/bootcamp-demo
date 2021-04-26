@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom";
 import * as actions from "../../../Store/Action/Login";
 import { useDispatch} from "react-redux";
 const { Header } = Layout;
-const Navbar = (props)=>{
+const Navbar = ()=>{
   const dispatch = useDispatch()
     return (
       <Header className="fix-topbar">

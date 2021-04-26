@@ -2,7 +2,7 @@ import axios from "axios";
 import { history } from "./App.js"
 
 const instance = axios.create({
-  baseURL:"https://nodejs-dev-camper-api.herokuapp.com/api/v1/"
+    baseURL:"https://nodejs-dev-camper-api.herokuapp.com/api/v1/"
 });
 
 instance.interceptors.request.use((config)=>{
@@ -18,6 +18,7 @@ instance.interceptors.response.use((response)=>{
       localStorage?.removeItem('success');
       history.push('/Login');
     }
+    return error;
   }
   )
 export default instance;

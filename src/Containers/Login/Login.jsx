@@ -9,7 +9,7 @@ import {NavLink} from "react-router-dom";
 
 const Login = (props) => {
   const dispatch = useDispatch()
-  const checkError = useSelector(state => state.Login);
+  const checkError = useSelector(state => state.getLogin);
   const [loginState] = useState({
     email: {
       elementType: "email",
@@ -61,8 +61,8 @@ const Login = (props) => {
       <Text className="error">  {checkError?.error} </Text>
       )}
       </Form.Item>
-      <Buttons>LogIn</Buttons>
-      <NavLink to="/Register"> <Buttons>SignIn</Buttons> </NavLink>
+      <Buttons htmlType="submit" className="login-form-button" loading={checkError.loading} >LogIn</Buttons >
+      <NavLink to="/Register"> <Buttons className="login-form-button">SignIn</Buttons> </NavLink>
     </Form>
 
   );

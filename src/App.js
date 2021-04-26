@@ -11,7 +11,7 @@ import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory();
 function App(props) {
   const dispatch = useDispatch()
-  const Auth = useSelector(state => state.Login);
+  const authCheck = useSelector(state => state.getLogin);
 
   useEffect(()=>{
     dispatch(actions?.authCheckState());
@@ -21,18 +21,19 @@ function App(props) {
     <Switch>
       <Route path="/Login" exact component={Login}/>,
       <Route path="/Register" exact component={Register}/>,
-      <Redirect to="/" from="/Login"/>
+      <Redirect to="/Login"/>
     </Switch>
     </Router>
   );
 
-  if (Auth?.token) {
+  if (authCheck?.token) {
     routes = (
       <Router history={history}>
       <Switch>
-        <Route path="/MainLayout/Dashboard" component={MainLayout}/>,
-        <Route path="/MainLayout/Bootcamp" component={MainLayout}/>,
-        <Route path="/MainLayout/Courses" component={MainLayout}/>,
+        <Route path="/MainLayout/Dashboard" exact component={MainLayout}/>,
+        <Route path="/MainLayout/Bootcamp" exact component={MainLayout}/>,
+        <Route path="/MainLayout/Courses" exact component={MainLayout}/>,
+        <Redirect to="/MainLayout/Dashboard"/>
       </Switch>
       </Router>
     );
@@ -40,9 +41,7 @@ function App(props) {
 
   return (
     <Auxiliary>
-      <Switch>
         {routes}
-      </Switch>
     </Auxiliary>
   );
 }

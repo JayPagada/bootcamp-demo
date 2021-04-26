@@ -32,6 +32,7 @@ export const getBootcamp = ()=>{
       })
   };
 };
+
 export const deleteData = (id)=>{
   return dispatch => {
     dispatch(getCurrentBootcampRequest());
@@ -41,6 +42,24 @@ export const deleteData = (id)=>{
       })
       .catch(error=>{
         dispatch(getCurrentBootcampFailure(error.response.data.error))
+      })
+  };
+};
+
+export const editData = (id,values)=>{
+  return dispatch => {
+    dispatch(getCurrentBootcampRequest());
+    api.put(`bootcamps/${id}`,
+      {data:{
+        "housing": true,
+        "name": values.name,
+        "description": values.description
+      }})
+      .then(response=>{
+        dispatch(getCurrentBootcampSuccess(response.data.data))
+      })
+      .catch(error=>{
+        dispatch(getCurrentBootcampFailure(error.response.data.data.error))
       })
   };
 };

@@ -19,8 +19,8 @@ const columns = [
   ]
 const Courses = ()=>{
   const dispatch = useDispatch()
-  const getCourses = useSelector(state => state.courses);
-  const getbootCampId = useSelector(state => state.Bootcamp);
+  const getCourses = useSelector(state => state.getCourses);
+  const getbootCampId = useSelector(state => state.getBootcamp);
   const idData = getbootCampId.bootCamps.map(id=>id.id)
   useEffect(()=>{dispatch(actions.getCourseData(idData))},[dispatch])
   if (getCourses.loading){
