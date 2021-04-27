@@ -31,12 +31,10 @@ export const editData = (id,values)=>{
         "description": values.description
       })
       .then(response=>{
-        console.log("response =>",response)
         dispatch(editBootcampSuccess(response.data.data))
         dispatch(bootcampActions.getBootcamp())
       })
       .catch(error=>{
-        console.log("error =>",error)
         dispatch(editBootcampFailure(error.response.data.data.error))
       })
   };

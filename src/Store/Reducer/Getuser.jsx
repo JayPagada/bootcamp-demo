@@ -1,6 +1,7 @@
 import * as actionTypes from "../Action/ActionType.jsx"
 
 const initialState = {
+  currentUserRole: null ,
   currentUser: null,
   currentUserEmail:null,
   currentUserId:null,
@@ -18,6 +19,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_CURRENT_USER_SUCCESS:
       return {
         ...state,
+        currentUserRole: action.currentUser.role ,
         currentUser: action.currentUser.name ,
         currentUserEmail:action.currentUser.email,
         currentUserId:action.currentUser._id,
