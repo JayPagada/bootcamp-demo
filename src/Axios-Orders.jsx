@@ -9,16 +9,21 @@ instance.interceptors.request.use((config)=>{
   const getToken = localStorage.getItem('token');
   config.headers.Authorization = getToken ? `Bearer ${getToken}` : "";
   return config;
-})
+},
+  (error) => {
+    return Promise.reject(error);
+  }
+)
 instance.interceptors.response.use((response)=>{
   return response;
 },(error) => {
+    console.log(error)
     if (error.response.status === 401 || error.response.status === 403 ) {
       localStorage?.removeItem('token');
       localStorage?.removeItem('success');
       history.push('/Login');
     }
-    return error;
+    return Promise.reject(error);
   }
   )
 export default instance;

@@ -1,9 +1,11 @@
 import React, {useEffect,useState} from 'react';
-import { Drawer, Form, Button, Col, Row, Input } from 'antd';
+import { Drawer, Form, Button, Col, Row, Input,Popconfirm } from 'antd';
 import {Spin, Table, Typography} from 'antd';
 import { EditOutlined ,DeleteOutlined} from '@ant-design/icons';
 import {useDispatch, useSelector} from "react-redux";
-import * as actions from "../../../Store/Action/Bootcamp";
+import * as bootcampActions from "../../../Store/Action/Bootcamp/Bootcamp";
+import * as editBootcampActions from "../../../Store/Action/Bootcamp/EditBootcamp";
+import * as deleteBootcampActions from "../../../Store/Action/Bootcamp/DeleteBootcamp";
 
 const Bootcamp = ()=>{
   let [state , setState] = useState(
@@ -54,17 +56,15 @@ const Bootcamp = ()=>{
       dataIndex: 'Delete',
       key: 'Delete',
       render: (_, record) => (
-        <span
-          onClick={() => { dispatch(actions.deleteData(record.id)) }}
-        >
-        <DeleteOutlined />
-      </span>
+        <Popconfirm title="Sure to delete?" onConfirm={() => { dispatch(deleteBootcampActions.deleteData(record.id)) }}>
+          <a><DeleteOutlined /></a>
+        </Popconfirm>
       ),
     },
   ];
   const dispatch = useDispatch()
   const bootCamps = useSelector(state => state.getBootcamp);
-  useEffect(()=>{dispatch(actions.getBootcamp())},[dispatch])
+  useEffect(()=>{dispatch(bootcampActions.getBootcamp())},[dispatch])
   if (bootCamps.loading){
     return (
       <div>
@@ -90,7 +90,12 @@ const Bootcamp = ()=>{
       });
     };
     const editHandeler = (values) =>{
-      dispatch(actions.editData(state.id,values))
+      dispatch(editBootcampActions.editData(state.id,values))
+      setState({
+        visible: false,
+        id:null,
+        filterData:null
+      });
     }
     if(state.visible){
       return (

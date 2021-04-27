@@ -10,7 +10,9 @@ import thunk from "redux-thunk";
 import reportWebVitals from './reportWebVitals';
 import LoginReducer from "./Store/Reducer/Login.jsx";
 import GetUserReducer from "./Store/Reducer/Getuser.jsx";
-import BootcampReducer from "./Store/Reducer/Bootcamp.jsx";
+import BootcampReducer from "./Store/Reducer/Bootcamp/Bootcamp.jsx";
+import deleteBootcampReducer from "./Store/Reducer/Bootcamp/DeleteBootcamp.jsx";
+import editBootcampReducer from "./Store/Reducer/Bootcamp/EditBootcamp.jsx";
 import CoursesReducer from "./Store/Reducer/Courses.jsx";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
   getLogin:LoginReducer,
   getUser:GetUserReducer,
   getBootcamp:BootcampReducer,
-  getCourses:CoursesReducer
+  getCourses:CoursesReducer,
+  deleteBootcamp:deleteBootcampReducer,
+  editBootcamp:editBootcampReducer
 })
 const store = createStore(rootReducer,composeEnhancers(
   applyMiddleware(thunk)
