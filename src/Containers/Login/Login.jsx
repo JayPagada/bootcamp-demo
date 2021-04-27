@@ -1,16 +1,15 @@
-import React, {useState,useReducer} from "react";
+import React, {useState} from "react";
 import Inputs from "../../Components/UI/Input/Inputs";
 import {Form, Typography} from 'antd';
 import Buttons from "../../Components/UI/Button/Buttons";
 import "./Login.css"
 import * as actions from "../../Store/Action/Login.jsx";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import reducer from "../../Store/Reducer/Login";
-
 
 const Login = (props) => {
   const dispatch = useDispatch()
+  const checkError = useSelector(state => state.getLogin);
   const [loginState] = useState({
     email: {
       elementType: "email",
@@ -20,9 +19,7 @@ const Login = (props) => {
     }
   });
 
-  const [login, dispach] = useReducer(reducer)
-
-  const {Title} = Typography;
+  const {Title,Text} = Typography;
 
   const tailLayout = {
     wrapperCol: {offset: 9, span: 6},
@@ -33,14 +30,13 @@ const Login = (props) => {
   };
 
   const inputChangeHandeler = (values) => {
-    dispatch(actions.auth(values.email,values.password))
-    props.history.push('/MainLayout/Dashboard')
+    dispatch(actions.auth(values.email,values.password,props))
+
   }
   const formElementArray = [];
   for (let key in loginState) {
     formElementArray.push({id: key, config: loginState[key]})
   }
-
   let form = (
     <Form
       {...tailLayout}
@@ -60,10 +56,15 @@ const Login = (props) => {
           shouldValidate={formElement.config.validation}
         />
       ))}
-      <Buttons>LogIn</Buttons>
-      <NavLink to="/Register"> <Buttons>SignIn</Buttons> </NavLink>
-
+      <Form.Item>
+      {(checkError?.error)&&(
+      <Text className="error">  {checkError?.error} </Text>
+      )}
+      </Form.Item>
+      <Buttons htmlType="submit" className="login-form-button" loading={checkError.loading} >LogIn</Buttons >
+      <NavLink to="/Register"> <Buttons className="login-form-button">SignIn</Buttons> </NavLink>
     </Form>
+
   );
 
   return (

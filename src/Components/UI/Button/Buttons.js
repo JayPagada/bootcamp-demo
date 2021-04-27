@@ -4,7 +4,7 @@ import "./Button.css"
 const  Buttons = (props)=>{
 return(
   <Form.Item>
-    <Button type="primary" htmlType="submit" className="login-form-button">
+    <Button type="primary" htmlType={props.htmlType} className={props.className} loading={props.loading}>
       {props.children}
     </Button>
   </Form.Item>

@@ -3,7 +3,7 @@ import Inputs from "../../Components/UI/Input/Inputs";
 import { Form,Typography } from 'antd';
 import Buttons from "../../Components/UI/Button/Buttons";
 import * as actions from "../../Store/Action/Login.jsx";
-import {connect, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import "../Login/Login.css"
 const Register=(props) => {
   const [Register ] = useState({
@@ -33,7 +33,8 @@ const Register=(props) => {
     }
   });
   const { Title } = Typography;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const forLoading = useSelector(state => state.getLogin);
   const tailLayout = {
     wrapperCol: { offset: 9, span: 6 },
   };
@@ -42,8 +43,7 @@ const Register=(props) => {
     wrapperCol: { offset: 10, span: 4 },
   };
   const onFinish = (values) => {
-    dispatch(actions.REGISTER(values.username,values.email,values.password,values.role));
-    props.history.push('/MainLayout/Dashboard')
+    dispatch(actions.REGISTER(values.username,values.email,values.password,values.role,props));
   };
 
   const formElementArray = [];
@@ -71,7 +71,7 @@ const Register=(props) => {
           shouldValidate={formElement.config.validation}
         />
       ))}
-      <Buttons>Register Now</Buttons>
+      <Buttons htmlType="submit" className="login-form-button" loading={forLoading.loading}>Register Now</Buttons>
     </Form>
   );
   return(
@@ -84,4 +84,4 @@ const Register=(props) => {
   );
 }
 
-  export default Register;
+export default Register;
